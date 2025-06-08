@@ -2,54 +2,16 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { ExpenseTable } from '@/components/budget/ExpenseTable';
-import type { Expense } from '@/types'; // Define your Expense type here
-import { Calendar } from '@/components/ui/calendar'; // Ensure your Calendar component is available
+import type { Expense } from '@/types';
+import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { getFromLocalStorage } from '@/lib/localStorage';
 
-// Dummy data - Replace this with API logic as needed
-const fetchExpenses = async (): Promise<Expense[]> => {
-  return [
-    {
-      id: '1',
-      description: 'Groceries',
-      amount: 50.25,
-      category: 'food',
-      date: new Date('2023-10-26T10:00:00Z').toISOString(),
-    },
-    {
-      id: '2',
-      description: 'Gas',
-      amount: 30.0,
-      category: 'transport',
-      date: new Date('2023-10-26T12:00:00Z').toISOString(),
-    },
-    {
-      id: '3',
-      description: 'Dinner',
-      amount: 45.7,
-      category: 'food',
-      date: new Date('2023-10-25T19:00:00Z').toISOString(),
-    },
-    {
-      id: '4',
-      description: 'Movie Tickets',
-      amount: 25.0,
-      category: 'entertainment',
-      date: new Date('2023-10-24T20:30:00Z').toISOString(),
-    },
-    {
-      id: '5',
-      description: 'Coffee',
-      amount: 4.5,
-      category: 'food',
-      date: new Date('2023-10-26T08:00:00Z').toISOString(),
-    },
-  ];
-};
+const EXPENSES_KEY = 'budgetwise_expenses';
 
 export default function ExpensesPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
@@ -60,9 +22,9 @@ export default function ExpensesPage() {
 
     const getExpenses = async () => {
       try {
-        const data = await fetchExpenses();
+        const localExpenses = getFromLocalStorage<Expense[]>(EXPENSES_KEY, []);
         if (isMounted) {
-          setExpenses(data);
+          setExpenses(localExpenses);
         }
       } catch (error) {
         console.error('Error fetching expenses:', error);
