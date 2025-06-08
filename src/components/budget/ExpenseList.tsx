@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import type { Expense } from "@/types";
+import { useRouter } from "next/navigation";
 import { expenseCategories, getCategoryConfig } from "@/config/categories";
 import { ListChecks, Archive } from "lucide-react";
 import { Home, Utensils, ShoppingBag, Car, BookOpen, HeartHandshake, Palette, Briefcase, Gift, Train, MoreHorizontal } from "lucide-react";
@@ -17,6 +18,7 @@ interface ExpenseListProps {
 }
 
 export function ExpenseList({ expenses }: ExpenseListProps) {
+  const router = useRouter();
 
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -53,11 +55,14 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
   return (
     <Card className="shadow-lg">
       <CardHeader>
-        <CardTitle className="flex items-center text-2xl">
-          <ListChecks className="mr-2 h-6 w-6 text-primary" />
-          Recent Expenses
-        </CardTitle>
-        <CardDescription>A list of your most recent expenditures.</CardDescription>
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center text-2xl">
+            <ListChecks className="mr-2 h-6 w-6 text-primary" />
+            Recent Expenses
+          </CardTitle>
+          <button onClick={() => router.push('/expenses')} className="text-sm text-primary hover:underline">View All</button>
+        </div>
+          <CardDescription>A list of your most recent expenditures.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
         {/* Summary Section */}
