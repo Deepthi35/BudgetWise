@@ -72,7 +72,7 @@ export function BudgetInputForm({ currentBudget, onSetBudget }: BudgetInputFormP
               name="budgetLimit"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Daily Budget Amount ($)</FormLabel>
+                  <FormLabel>Daily Budget Amount (₹)</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="e.g., 50" {...field} step="0.01" />
                   </FormControl>

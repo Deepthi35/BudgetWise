@@ -70,7 +70,7 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
           <h3 className="text-lg font-semibold">Spending Summary</h3>
           <div className="flex justify-between items-center text-md">
             <span className="text-muted-foreground">Total Spent:</span>
-            <span className="font-bold text-primary">${totalSpending.toFixed(2)}</span>
+            <span className="font-bold text-primary">₹{totalSpending.toFixed(2)}</span>
           </div>
           <Separator />
           <h4 className="text-md font-medium mt-4">Spending by Category:</h4>
@@ -78,7 +78,7 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
             {Object.entries(spendingByCategory).map(([category, amount]) => (
               <li key={category} className="flex justify-between items-center">
                 <span>{getCategoryLabel(category)}:</span>
-                <span className="font-medium text-primary">${amount.toFixed(2)}</span>
+                <span className="font-medium text-primary">₹{amount.toFixed(2)}</span>
               </li>
             ))}
           </ul>
@@ -98,7 +98,7 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-red-600">-${expense.amount.toFixed(2)}</p>
+                      <p className="font-medium text-red-600">₹{expense.amount.toFixed(2)}</p>
                       <p className="text-sm text-gray-500">{getCategoryLabel(expense.category)}</p>
                     </div>
                   </div>
@@ -123,7 +123,7 @@ export function ExpenseList({ expenses }: ExpenseListProps) {
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <span className="text-sm font-medium text-muted-foreground">Amount:</span>
-                  <span className="col-span-3 font-bold text-primary">${selectedExpense.amount.toFixed(2)}</span>
+                  <span className="col-span-3 font-bold text-primary">₹{selectedExpense.amount.toFixed(2)}</span>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
                   <span className="text-sm font-medium text-muted-foreground">Category:</span>

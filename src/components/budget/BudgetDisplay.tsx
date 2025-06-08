@@ -47,18 +47,18 @@ export function BudgetDisplay({ budgetLimit, expenses }: BudgetDisplayProps) {
       <CardContent className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-muted-foreground">Daily Limit:</span>
-          <span className="font-semibold text-lg">${budgetLimit.toFixed(2)}</span>
+          <span className="font-semibold text-lg">₹{budgetLimit.toFixed(2)}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-muted-foreground">Total Spent:</span>
-          <span className="font-semibold text-lg">${totalSpent.toFixed(2)}</span>
+          <span className="font-semibold text-lg">₹{totalSpent.toFixed(2)}</span>
         </div>
         <div className={`flex justify-between items-center p-3 rounded-md ${isOverBudget ? 'bg-destructive/10' : 'bg-primary/10'}`}>
           <span className={`font-semibold ${isOverBudget ? 'text-destructive' : 'text-primary'}`}>
             {isOverBudget ? "Over Budget By:" : "Remaining:"}
           </span>
           <span className={`font-bold text-xl ${isOverBudget ? 'text-destructive' : 'text-primary'}`}>
-            ${remainingBudget !== null ? Math.abs(remainingBudget).toFixed(2) : 'N/A'}
+          ₹{remainingBudget !== null ? Math.abs(remainingBudget).toFixed(2) : 'N/A'}
           </span>
         </div>
         

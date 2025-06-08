@@ -23,6 +23,7 @@ interface ExpenseTableProps {
 export function ExpenseTable({ expenses }: ExpenseTableProps) {
   const [selectedExpense, setSelectedExpense] = useState<Expense | null>(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const tableRef = React.useRef<HTMLTableElement>(null);
 
   const handleViewDetails = (expense: Expense) => {
     setSelectedExpense(expense);
@@ -37,7 +38,8 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
 
   return (
     <>
-      <Table>
+    <div className="overflow-x-auto">
+      <Table ref={tableRef} className="w-full caption-bottom text-sm bg-white">
         <TableHeader>
           <TableRow>
             <TableHead className="w-[100px]">S.No.</TableHead>
@@ -56,10 +58,10 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
           ) : (
             expenses.map((expense, index) => (
               <TableRow key={expense.id}>
-                <TableCell className="font-medium">{index + 1}</TableCell>
-                <TableCell>-${expense.amount.toFixed(2)}</TableCell>
+                <TableCell className="font-medium text-center">{index + 1}</TableCell>
+                <TableCell>₹{expense.amount.toFixed(2)}</TableCell>
                 <TableCell>{getCategoryLabel(expense.category)}</TableCell>
-                <TableCell className="text-center">
+                <TableCell className="text-center align-middle">
                   <Button variant="ghost" size="sm" onClick={() => handleViewDetails(expense)}>
                     <Eye className="h-4 w-4" />
                   </Button>
@@ -69,6 +71,7 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
           )}
         </TableBody>
       </Table>
+    </div>
 
       <Dialog open={isDetailsOpen} onOpenChange={setIsDetailsOpen}>
         <DialogContent className="sm:max-w-[425px]">
@@ -84,7 +87,7 @@ export function ExpenseTable({ expenses }: ExpenseTableProps) {
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <span className="text-sm font-medium text-muted-foreground">Amount:</span>
-                <span className="col-span-3 font-bold text-primary">-${selectedExpense.amount.toFixed(2)}</span>
+                <span className="col-span-3 font-bold text-primary">₹{selectedExpense.amount.toFixed(2)}</span>
               </div>
               <div className="grid grid-cols-4 items-center gap-4">
                 <span className="text-sm font-medium text-muted-foreground">Category:</span>

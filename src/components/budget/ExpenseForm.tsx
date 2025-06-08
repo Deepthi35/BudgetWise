@@ -59,7 +59,7 @@ export function ExpenseForm({ onAddExpense, budgetLimit }: ExpenseFormProps) {
   function onSubmit(data: ExpenseFormValues) {
     const newExpense: Expense = {
       id: Date.now().toString(),
-      ...data,
+ ...data, amount: Math.abs(data.amount),
       date: new Date().toISOString(),
     };
     onAddExpense(newExpense);
@@ -104,7 +104,7 @@ export function ExpenseForm({ onAddExpense, budgetLimit }: ExpenseFormProps) {
                 name="amount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount ($)</FormLabel>
+                    <FormLabel>Amount (₹)</FormLabel>
                     <FormControl>
                       <Input type="number" placeholder="e.g., 15.50" {...field} step="0.01" />
                     </FormControl>

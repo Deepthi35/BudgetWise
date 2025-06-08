@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { ExpenseTable } from '@/components/budget/ExpenseTable';
 import type { Expense } from '@/types';
 import { Calendar } from '@/components/ui/calendar';
@@ -15,6 +16,7 @@ const EXPENSES_KEY = 'budgetwise_expenses';
 
 export default function ExpensesPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const router = useRouter();
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
 
   useEffect(() => {
@@ -51,7 +53,10 @@ export default function ExpensesPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-6">All Expenditures</h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">All Expenditures</h1>
+        <Button variant="outline" onClick={() => router.push('/')}>Back to Home</Button>
+      </div>
 
       <div className="mb-6 flex items-center space-x-4">
         <span className="font-medium">Filter by Date:</span>
